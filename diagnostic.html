@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Site Diagnostic — Proassistanne</title>
+<link rel="stylesheet" href="css/styles.css?v=9">
+<style>
+  body { padding: 40px 6%; font-family: 'Poppins', sans-serif; }
+  .test { padding: 14px 20px; margin: 10px 0; border-left: 4px solid #ccc; background: #fafafa; }
+  .test.pass { border-color: #2a9d3f; background: #f0f9f1; }
+  .test.fail { border-color: #c93838; background: #fdf1f1; }
+  .test b { display: block; margin-bottom: 4px; }
+  h1 { font-family: 'Playfair Display', serif; margin-bottom: 8px; }
+  .subtitle { color: #888; margin-bottom: 30px; }
+  .nav-link { display: inline-block; margin: 20px 8px 0 0; padding: 10px 20px; background: #d4859a; color: white; text-decoration: none; font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; }
+</style>
+</head>
+<body>
+
+<h1>Site Diagnostic</h1>
+<p class="subtitle">This page tests if your site files are working correctly. All checks should be green.</p>
+
+<div id="results"></div>
+
+<a href="index.html" class="nav-link">← Back to Site</a>
+
+<script src="js/main.js?v=9"></script>
+<script>
+// Run tests after a delay so main.js fully loads
+setTimeout(function(){
+  var results = document.getElementById('results');
+  var tests = [
+    {
+      name: 'CSS file loaded',
+      check: function(){
+        var test = document.createElement('div');
+        test.className = 'reveal';
+        document.body.appendChild(test);
+        var s = window.getComputedStyle(test);
+        var loaded = s.opacity === '0' || s.transition.indexOf('opacity') !== -1;
+        test.remove();
+        return loaded;
+      }
+    },
+    {
+      name: 'JavaScript file loaded',
+      check: function(){ return typeof P === 'function'; }
+    },
+    {
+      name: 'Page navigation function (P) ready',
+      check: function(){ return typeof P === 'function' && typeof PAGE_MAP === 'object'; }
+    },
+    {
+      name: 'Side panel function (openSidePanel) ready',
+      check: function(){ return typeof openSidePanel === 'function'; }
+    },
+    {
+      name: 'Portfolio sample data loaded',
+      check: function(){ return typeof SAMPLE_MAP === 'object' && SAMPLE_MAP.BLOG_DATA && SAMPLE_MAP.BLOG_DATA.length > 0; }
+    },
+    {
+      name: 'Project Management data loaded',
+      check: function(){ return typeof PM_DATA !== 'undefined' && PM_DATA.length > 0; }
+    },
+    {
+      name: 'SMM platform data loaded',
+      check: function(){ return typeof SMM_DATA === 'object' && SMM_DATA.instagram; }
+    },
+    {
+      name: 'Right-click protection active',
+      check: function(){
+        // Test by simulating a contextmenu event
+        var prevented = false;
+        var handler = function(e){ if(e.defaultPrevented) prevented = true; };
+        document.addEventListener('contextmenu', handler, true);
+        var ev = new MouseEvent('contextmenu', { bubbles: true, cancelable: true });
+        document.dispatchEvent(ev);
+        document.removeEventListener('contextmenu', handler, true);
+        return ev.defaultPrevented;
+      }
+    },
+    {
+      name: 'Copy protection active',
+      check: function(){
+        var ev = new ClipboardEvent('copy', { bubbles: true, cancelable: true });
+        document.dispatchEvent(ev);
+        return ev.defaultPrevented;
+      }
+    },
+    {
+      name: 'Reveal animation safety net active',
+      check: function(){
+        // Check if our fallback animation rule exists
+        var found = false;
+        for(var i = 0; i < document.styleSheets.length; i++){
+          try {
+            var rules = document.styleSheets[i].cssRules;
+            for(var j = 0; j < rules.length; j++){
+              if(rules[j].cssText && rules[j].cssText.indexOf('revealFallback') !== -1){ found = true; break; }
+            }
+          } catch(e) {}
+          if(found) break;
+        }
+        return found;
+      }
+    }
+  ];
+
+  tests.forEach(function(t){
+    var pass = false;
+    try { pass = t.check(); } catch(e) { pass = false; }
+    var div = document.createElement('div');
+    div.className = 'test ' + (pass ? 'pass' : 'fail');
+    div.innerHTML = '<b>' + (pass ? '✓' : '✗') + ' ' + t.name + '</b>' +
+      (pass ? 'Working correctly.' : 'NOT working — check that you uploaded the latest css/styles.css and js/main.js files.');
+    results.appendChild(div);
+  });
+}, 800);
+</script>
+</body>
+</html>
