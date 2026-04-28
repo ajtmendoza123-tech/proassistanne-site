@@ -1909,42 +1909,8 @@ function closeWebModalDirect(){document.getElementById('webModal').classList.rem
   });
 })();
 
-/* ═══════════════════════════════════════════════════════════
-   RESUME POPUP — protected, directs to WhatsApp or email
-═══════════════════════════════════════════════════════════ */
-function openResumePopup(){
-  var popup = document.getElementById('resumePopup');
-  if(!popup) return;
-  popup.style.display = 'flex';
-  document.body.style.overflow = 'hidden';
-  // Close on backdrop click
-  popup.onclick = function(e){ if(e.target === popup) closeResumePopup(); };
-}
-function closeResumePopup(){
-  var popup = document.getElementById('resumePopup');
-  if(popup){ popup.style.display = 'none'; document.body.style.overflow = ''; }
-}
-function copyResumeEmail(){
-  var email = 'ajtmendoza123@gmail.com';
-  var btn = document.getElementById('resumeCopyBtn');
-  if(navigator.clipboard && navigator.clipboard.writeText){
-    navigator.clipboard.writeText(email).then(function(){
-      if(btn){ btn.textContent = '✓ Copied!'; btn.style.background = '#2a9d3f'; setTimeout(function(){ btn.textContent = 'Copy'; btn.style.background = '#1a1410'; }, 2200); }
-    });
-  } else {
-    // Fallback for older browsers
-    var ta = document.createElement('textarea');
-    ta.value = email; ta.style.position = 'fixed'; ta.style.opacity = '0';
-    document.body.appendChild(ta); ta.select();
-    try { document.execCommand('copy'); } catch(e){}
-    document.body.removeChild(ta);
-    if(btn){ btn.textContent = '✓ Copied!'; btn.style.background = '#2a9d3f'; setTimeout(function(){ btn.textContent = 'Copy'; btn.style.background = '#1a1410'; }, 2200); }
-  }
-}
-// Also close resume popup on Escape key
-document.addEventListener('keydown', function(e){
-  if(e.key === 'Escape') closeResumePopup();
-});
+/* Resume popup functions (openResumePopup, closeResumePopup, resumeNext, resumeBack, resumeDone)
+   are defined inline in index.html — removed duplicate here so main.js does not overwrite them. */
 
 /* ═══════════════════════════════════════════════════════════
    RESOURCES PAGE — copyable email in Step 2

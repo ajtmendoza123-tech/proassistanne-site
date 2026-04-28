@@ -261,6 +261,7 @@
       <div class="hero-cta-row">
         <a href="#" onclick="P('hire');return false" class="btn-dark"><span>Hire Me</span></a>
         <a href="https://wa.link/drgzeo" target="_blank" rel="noopener" class="btn-outline">Let's Connect</a>
+        <a href="#" onclick="openPortfolioPopup();return false;" class="btn-outline">🗂️ View My Portfolio</a>
         <a href="#" onclick="openResumePopup();return false;" class="btn-outline">📄 Download Resume</a>
         <a href="https://beacons.ai/proassistanne" target="_blank" rel="noopener" class="btn-beacon">🔗 All My Links</a>
       </div>
@@ -907,59 +908,95 @@
 </aside>
 
 <!-- FOLLOW ME POPUP -->
+<style>
+/* ── Follow popup step 2 contact buttons (were missing from CSS) ── */
+.fp-contact-btn{
+  display:flex;align-items:center;gap:14px;
+  padding:15px 18px;border-radius:4px;
+  text-decoration:none;color:var(--white);
+  font-family:var(--sans);font-weight:600;
+  margin-bottom:10px;transition:opacity 0.2s;
+  border:none;cursor:pointer;width:100%;box-sizing:border-box;
+}
+.fp-contact-btn:hover{opacity:0.88;}
+.fp-contact-btn span:first-child{flex-shrink:0;font-size:20px;}
+.fp-contact-btn > span:last-child{text-align:left;font-size:13px;line-height:1.35;}
+.fp-email{background:var(--ink);}
+.fp-fb{background:#1877F2;flex:1;}
+.fp-ig{background:linear-gradient(135deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888);flex:1;}
+.fp-duo{display:flex;gap:8px;margin-bottom:10px;}
+.fp-duo .fp-contact-btn{margin-bottom:0;}
+.fp-divider{display:flex;align-items:center;gap:10px;margin:6px 0 10px;}
+.fp-divider div{flex:1;height:1px;background:var(--border);}
+.fp-divider span{font-size:11px;color:var(--mist);font-weight:500;}
+.fp-tip{background:#fdf8f2;border-left:3px solid var(--accent);padding:12px 14px;text-align:left;border-radius:2px;margin-bottom:14px;}
+.fp-tip-lbl{font-size:10px;color:var(--accent);letter-spacing:0.15em;text-transform:uppercase;font-weight:700;margin-bottom:5px;}
+.fp-tip-body{font-size:12px;color:var(--stone);line-height:1.6;}
+</style>
+
 <div class="follow-popup-overlay" id="followPopup" onclick="closeFollowPopup(event)">
   <div class="follow-popup" onclick="event.stopPropagation()" style="max-width:500px;">
-    <button class="follow-popup-close" onclick="closeFollowPopupDirect()" aria-label="Close">✕</button>
+    <button class="follow-popup-close" onclick="closeFollowPopupDirect()" aria-label="Close">&#x2715;</button>
+
+    <!-- STEP 1: Follow -->
     <div id="followStep1">
-      <div class="follow-popup-icon">💛</div>
+      <div class="follow-popup-icon">&#x1F49B;</div>
       <span class="res-name" id="followPopupResName">Free Resource</span>
-      <h3>Step 1: Follow me first! 🌸</h3>
-      <p>All my resources are <strong style="color:var(--accent);">100% free</strong> — no catch, no hidden fees! The only thing I ask is that you follow me on at least one of these:</p>
+      <h3>Step 1: Follow me first! &#x1F338;</h3>
+      <p>All my resources are <strong style="color:var(--accent);">100% free</strong> &#x2014; no catch, no hidden fees! The only thing I ask is that you follow me on at least one of these:</p>
       <div class="follow-popup-socials">
-        <a href="https://www.instagram.com/proassistanne/" target="_blank" rel="noopener" onclick="markFollowed()">📸 Instagram</a>
-        <a href="https://www.facebook.com/ProAssistAnne" target="_blank" rel="noopener" onclick="markFollowed()">👍 Facebook</a>
-        <a href="https://www.tiktok.com/@kaendiary1" target="_blank" rel="noopener" onclick="markFollowed()">🎵 TikTok</a>
-        <a href="https://www.linkedin.com/in/annejoytherese/" target="_blank" rel="noopener" onclick="markFollowed()">💼 LinkedIn</a>
+        <a href="https://www.instagram.com/proassistanne/" target="_blank" rel="noopener" onclick="markFollowed()">&#x1F4F8; Instagram</a>
+        <a href="https://www.facebook.com/ProAssistAnne" target="_blank" rel="noopener" onclick="markFollowed()">&#x1F44D; Facebook</a>
+        <a href="https://www.tiktok.com/@kaendiary1" target="_blank" rel="noopener" onclick="markFollowed()">&#x1F3B5; TikTok</a>
+        <a href="https://www.linkedin.com/in/annejoytherese/" target="_blank" rel="noopener" onclick="markFollowed()">&#x1F4BC; LinkedIn</a>
       </div>
-      <p style="font-size:12px;color:var(--mist);margin-bottom:20px;">Once you've followed at least one, click the button below 👇</p>
-      <button id="followedBtn" onclick="showEmailStep()" style="display:inline-flex;align-items:center;justify-content:center;gap:8px;background:var(--accent);color:#fff;border:none;padding:13px 28px;font-family:'Poppins',sans-serif;font-size:13px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;cursor:pointer;width:100%;border-radius:2px;transition:opacity 0.2s;">
-        ✅ I've followed, Next Step →
+      <p style="font-size:12px;color:var(--mist);margin-bottom:20px;">Once you&#x2019;ve followed at least one, click the button below &#x1F447;</p>
+      <button id="followedBtn" onclick="showEmailStep()" style="display:inline-flex;align-items:center;justify-content:center;gap:8px;background:var(--accent);color:#fff;border:none;padding:14px 28px;font-family:var(--sans);font-size:12px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;cursor:pointer;width:100%;border-radius:3px;transition:opacity 0.2s;">
+        &#x2705; I&#x2019;ve followed, Next Step &#x2192;
       </button>
     </div>
+
+    <!-- STEP 2: Contact -->
     <div id="followStep2" style="display:none;">
-      <div class="follow-popup-icon">🎁</div>
-      <h3>Step 2: Let me know! 🌸</h3>
-      <p>Amazing, thank you so much for following! 💛 Now just tell me <strong style="color:var(--accent);">which resource(s) you'd love to have</strong> and I'll send them right away — completely free!</p>
-      <p style="font-size:11px;color:var(--accent);letter-spacing:0.15em;text-transform:uppercase;font-weight:600;margin:18px 0 10px;">Choose how to reach me:</p>
-      <!-- Option A: Email -->
-      <a href="mailto:ajtmendoza123@gmail.com?subject=I%20followed%20you%20%F0%9F%8C%B8%20%E2%80%94%20Can%20I%20have%20the%20free%20resources%3F&body=Hi%20Anne!%20%F0%9F%92%9B%0A%0AMy%20name%20is%20%5Byour%20name%5D%20and%20I%20just%20followed%20you%20on%20%5Bplatform%5D!%20I%20absolutely%20love%20what%20you%20share%20and%20it%20has%20been%20so%20helpful%20for%20me%20as%20a%20VA.%0A%0AI%20would%20be%20so%20grateful%20if%20you%20could%20please%20send%20me%20a%20copy%20of%20your%20free%20resources.%20Resources%20like%20yours%20make%20such%20a%20huge%20difference%20for%20VAs%20who%20are%20just%20starting%20out!%0A%0AThank%20you%20so%20much%20for%20being%20so%20generous!%20%F0%9F%8C%B8%0A%0AWith%20gratitude%2C%0A%5Byour%20name%5D"
+      <div class="follow-popup-icon">&#x1F381;</div>
+      <h3>Step 2: Let me know! &#x1F338;</h3>
+      <p>Amazing, thank you so much for following! &#x1F49B; Now just tell me <strong style="color:var(--accent);">which resource(s) you&#x2019;d love to have</strong> and I&#x2019;ll send them right away &#x2014; completely free!</p>
+      <p style="font-size:11px;color:var(--accent);letter-spacing:0.15em;text-transform:uppercase;font-weight:600;margin:18px 0 12px;">Choose how to reach me:</p>
+
+      <a href="mailto:ajtmendoza123@gmail.com?subject=I%20followed%20you%20%F0%9F%8C%B8%20%E2%80%94%20Free%20Resources%20Request&body=Hi%20Anne!%20%F0%9F%92%9B%0A%0AMy%20name%20is%20%5Byour%20name%5D%20and%20I%20just%20followed%20you%20on%20%5Bplatform%5D!%0A%0AResources%20I%27d%20love%3A%20%5Blist%20them%20here%5D%0A%0AA%20little%20about%20me%3A%20%5Be.g.%20I%27m%20a%20new%20VA%20trying%20to%20grow!%5D%0A%0AThank%20you%20so%20much!%20%F0%9F%8C%B8%0A%5Byour%20name%5D"
          class="fp-contact-btn fp-email">
-        <span style="font-size:20px;">✉️</span>
-        <span><span style="display:block;font-size:10px;letter-spacing:0.15em;text-transform:uppercase;opacity:0.7;margin-bottom:2px;">Option A</span>Send me an Email</span>
+        <span>&#x2709;&#xFE0F;</span>
+        <span>
+          <span style="display:block;font-size:10px;letter-spacing:0.14em;text-transform:uppercase;opacity:0.75;margin-bottom:2px;">Option A</span>
+          Send me an Email
+        </span>
       </a>
-      <!-- Divider -->
-      <div style="display:flex;align-items:center;gap:10px;margin:4px 0 10px;">
-        <div style="flex:1;height:1px;background:var(--border);"></div>
-        <span style="font-size:11px;color:var(--mist);font-weight:500;">or</span>
-        <div style="flex:1;height:1px;background:var(--border);"></div>
-      </div>
-      <!-- Option B: DM on FB or Instagram -->
-      <div style="display:flex;gap:8px;margin-bottom:16px;">
+
+      <div class="fp-divider"><div></div><span>or</span><div></div></div>
+
+      <div class="fp-duo">
         <a href="https://m.me/ProAssistAnne" target="_blank" rel="noopener" class="fp-contact-btn fp-fb">
-          <span style="font-size:18px;">💬</span>
-          <span><span style="display:block;font-size:10px;letter-spacing:0.12em;text-transform:uppercase;opacity:0.8;margin-bottom:2px;">Option B</span>Message on Facebook</span>
+          <span>&#x1F4AC;</span>
+          <span>
+            <span style="display:block;font-size:10px;letter-spacing:0.12em;text-transform:uppercase;opacity:0.8;margin-bottom:2px;">Option B</span>
+            Facebook Messenger
+          </span>
         </a>
         <a href="https://www.instagram.com/proassistanne/" target="_blank" rel="noopener" class="fp-contact-btn fp-ig">
-          <span style="font-size:18px;">📸</span>
-          <span><span style="display:block;font-size:10px;letter-spacing:0.12em;text-transform:uppercase;opacity:0.8;margin-bottom:2px;">Option B</span>DM on Instagram</span>
+          <span>&#x1F4F8;</span>
+          <span>
+            <span style="display:block;font-size:10px;letter-spacing:0.12em;text-transform:uppercase;opacity:0.8;margin-bottom:2px;">Option B</span>
+            DM on Instagram
+          </span>
         </a>
       </div>
-      <div style="background:#fdf8f2;border-left:3px solid var(--accent);padding:13px 15px;text-align:left;border-radius:2px;margin-bottom:14px;">
-        <div style="font-size:11px;color:var(--accent);letter-spacing:0.15em;text-transform:uppercase;font-weight:600;margin-bottom:5px;">What to include</div>
-        <div style="font-size:13px;color:var(--stone);line-height:1.6;">Your name · which platform you followed me on · a quick note about yourself (e.g. "I'm a new VA trying to grow!") · which resource(s) you want. The more personal the better — I love hearing from fellow VAs! I reply within 24 hours. 💛</div>
+
+      <div class="fp-tip">
+        <div class="fp-tip-lbl">What to include</div>
+        <div class="fp-tip-body">Your name &#xB7; which platform you followed on &#xB7; a quick note about yourself &#xB7; which resource(s) you want. I reply within 24 hours. &#x1F49B;</div>
       </div>
-      <p style="font-size:12px;color:var(--accent);font-weight:600;margin-bottom:4px;">🎁 Everything is 100% FREE — always.</p>
-      <p class="follow-popup-note">No spam, no hidden costs, just real VA tools made with love. 💛</p>
+      <p style="font-size:12px;color:var(--accent);font-weight:600;margin-bottom:4px;">&#x1F381; Everything is 100% FREE &#x2014; always.</p>
+      <p class="follow-popup-note">No spam, no hidden costs, just real VA tools made with love. &#x1F49B;</p>
     </div>
   </div>
 </div>
@@ -1028,39 +1065,638 @@
   </div>
 </div>
 
+<style>
+/* ═══ RESUME POPUP ═══ */
+.rp-overlay{
+  display:none;position:fixed;inset:0;z-index:2000;
+  background:rgba(10,6,18,0.80);backdrop-filter:blur(8px);
+  align-items:center;justify-content:center;
+  padding:16px;box-sizing:border-box;
+}
+.rp-box{
+  background:#fff;max-width:460px;width:100%;margin:auto;
+  position:relative;max-height:92vh;overflow-y:auto;
+  border-radius:16px;
+  box-shadow:0 24px 80px rgba(0,0,0,0.35);
+  font-family:'Poppins',sans-serif;
+}
+/* header */
+.rp-head{
+  background:#1a1020;
+  border-radius:16px 16px 0 0;
+  padding:28px 28px 24px;
+  position:relative;
+}
+.rp-close{
+  position:absolute;top:12px;right:12px;
+  background:rgba(255,255,255,0.10);
+  border:1px solid rgba(255,255,255,0.18);
+  color:rgba(255,255,255,0.65);
+  font-size:14px;width:28px;height:28px;
+  border-radius:50%;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  transition:background 0.2s;line-height:1;
+}
+.rp-close:hover{background:rgba(255,255,255,0.22);color:#fff;}
+.rp-eyebrow{
+  display:inline-block;
+  background:rgba(212,133,154,0.20);
+  border:1px solid rgba(212,133,154,0.35);
+  color:#d4859a;font-size:9px;letter-spacing:0.22em;
+  text-transform:uppercase;font-weight:700;
+  padding:3px 10px;border-radius:20px;margin-bottom:12px;
+}
+.rp-head-title{
+  font-family:'Playfair Display',Georgia,serif;
+  font-size:24px;color:#fff;font-style:italic;
+  line-height:1.3;margin:0 0 8px;
+}
+.rp-head-sub{font-size:12px;color:rgba(255,255,255,0.45);line-height:1.6;margin:0;}
+/* step bar */
+.rp-stepbar{
+  display:flex;align-items:center;
+  padding:18px 28px 0;
+  gap:0;
+}
+.rp-si{display:flex;align-items:center;gap:8px;flex:1;}
+.rp-si:last-child{flex:0 0 auto;}
+.rp-si-num{
+  width:26px;height:26px;border-radius:50%;
+  border:2px solid #e0e0e0;color:#bbb;
+  background:#fff;font-size:11px;font-weight:700;
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;transition:all 0.25s;
+}
+.rp-si-lbl{font-size:10px;color:#aaa;font-weight:500;white-space:nowrap;transition:color 0.25s;}
+.rp-si-line{flex:1;height:2px;background:#ececec;margin:0 6px;transition:background 0.25s;}
+.rp-si.active .rp-si-num{border-color:#d4859a;background:#d4859a;color:#fff;}
+.rp-si.active .rp-si-lbl{color:#1a1020;font-weight:600;}
+.rp-si.done .rp-si-num{border-color:#d4859a;background:#fdf0f3;color:#d4859a;}
+.rp-si.done .rp-si-line{background:#d4859a;}
+/* body */
+.rp-body{padding:22px 28px 28px;}
+.rp-step-title{font-size:14px;font-weight:600;color:#0f0f0f;margin:0 0 16px;line-height:1.4;}
+.rp-step-title em{color:#d4859a;font-style:normal;}
+/* fields */
+.rp-field{margin-bottom:13px;}
+.rp-row-2{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+@media(max-width:420px){.rp-row-2{grid-template-columns:1fr;}}
+.rp-lbl{
+  display:flex;align-items:center;gap:5px;
+  font-size:10px;color:#555;letter-spacing:0.12em;
+  text-transform:uppercase;font-weight:600;margin-bottom:6px;
+}
+.rp-lbl .req{color:#d4859a;}
+.rp-lbl .opt{
+  font-size:9.5px;color:#aaa;font-weight:400;
+  text-transform:none;letter-spacing:0;
+  background:#f5f5f5;padding:1px 7px;border-radius:10px;
+}
+.rp-input,.rp-ta{
+  width:100%;box-sizing:border-box;
+  border:1.5px solid #e8e8e8;
+  padding:10px 13px;
+  font-family:'Poppins',sans-serif;font-size:13px;color:#0f0f0f;
+  outline:none;background:#fafafa;
+  border-radius:8px;transition:border-color 0.2s,background 0.2s;
+}
+.rp-input:focus,.rp-ta:focus{border-color:#d4859a;background:#fff;}
+.rp-ta{resize:vertical;min-height:74px;}
+.rp-err{
+  display:none;font-size:12px;color:#c93838;
+  margin-bottom:12px;padding:10px 13px;
+  background:#fef5f5;border:1.5px solid #f5c6c6;
+  border-radius:8px;line-height:1.5;
+}
+.rp-btn{
+  width:100%;background:#0f0f0f;color:#fff;border:none;
+  padding:13px 20px;
+  font-family:'Poppins',sans-serif;font-size:11px;
+  font-weight:700;letter-spacing:0.12em;text-transform:uppercase;
+  cursor:pointer;border-radius:8px;
+  transition:background 0.2s;
+  display:flex;align-items:center;justify-content:center;gap:8px;
+}
+.rp-btn:hover{background:#d4859a;}
+.rp-note{font-size:11px;color:#aaa;text-align:center;margin:11px 0 0;line-height:1.6;}
+/* step 2 send buttons */
+.rp-send{
+  display:flex;align-items:center;gap:14px;
+  color:#fff;text-decoration:none;
+  padding:15px 16px;margin-bottom:10px;
+  border-radius:10px;
+  transition:opacity 0.18s,transform 0.18s;
+}
+.rp-send:hover{opacity:0.92;transform:translateY(-1px);}
+.rp-send.wa{background:linear-gradient(135deg,#25D366,#1aab52);}
+.rp-send.em{background:linear-gradient(135deg,#1a1020,#2d1f35);}
+.rp-send-icon{font-size:22px;flex-shrink:0;}
+.rp-send-lbl{font-size:13px;font-weight:700;}
+.rp-send-sub{font-size:11px;opacity:0.75;margin-top:2px;}
+.rp-send-arr{margin-left:auto;font-size:16px;opacity:0.5;}
+.rp-divider{display:flex;align-items:center;gap:10px;margin:2px 0 8px;}
+.rp-divider hr{flex:1;border:none;border-top:1px solid #ececec;}
+.rp-divider span{font-size:11px;color:#bbb;}
+.rp-back{
+  background:none;border:none;color:#aaa;
+  font-family:'Poppins',sans-serif;font-size:12px;
+  cursor:pointer;display:flex;align-items:center;
+  justify-content:center;gap:4px;
+  margin:10px auto 0;padding:6px 12px;border-radius:6px;
+  transition:color 0.2s,background 0.2s;
+}
+.rp-back:hover{color:#0f0f0f;background:#f5f5f5;}
+/* step 3 thank you */
+.rp-ty{text-align:center;padding:8px 0 4px;}
+.rp-ty-ico{font-size:54px;display:block;margin-bottom:14px;}
+.rp-ty-tag{
+  display:inline-block;
+  background:#fdf0f3;color:#d4859a;
+  font-size:9px;letter-spacing:0.22em;text-transform:uppercase;
+  font-weight:700;padding:4px 12px;border-radius:20px;margin-bottom:14px;
+}
+.rp-ty-title{
+  font-family:'Playfair Display',Georgia,serif;
+  font-size:22px;color:#0f0f0f;font-style:italic;
+  line-height:1.3;margin-bottom:10px;
+}
+.rp-ty-sub{font-size:13px;color:#666;line-height:1.75;margin-bottom:24px;}
+</style>
+
 <!-- RESUME POPUP -->
-<div id="resumePopup" style="display:none;position:fixed;inset:0;z-index:2000;background:rgba(26,20,16,0.75);backdrop-filter:blur(4px);align-items:center;justify-content:center;">
-  <div style="background:#fff;max-width:480px;width:92%;margin:auto;position:relative;padding:44px 36px 36px;box-shadow:0 30px 80px rgba(0,0,0,0.22);">
-    <button onclick="closeResumePopup()" style="position:absolute;top:14px;right:16px;background:none;border:none;font-size:20px;cursor:pointer;color:#888;line-height:1;">✕</button>
-    <div style="font-size:36px;margin-bottom:14px;">📄</div>
-    <div style="font-size:10px;color:#d4859a;letter-spacing:0.28em;text-transform:uppercase;font-weight:700;margin-bottom:8px;">Resume Request</div>
-    <h3 style="font-family:'DM Serif Display',Georgia,serif;font-size:22px;color:#1a1410;margin-bottom:12px;line-height:1.35;">I'd love to share my resume with you! 🌸</h3>
-    <p style="font-size:14px;color:#6b6560;line-height:1.75;margin-bottom:22px;">To keep my resume protected, I share it personally. Just reach out via WhatsApp or email and I'll send it to you right away — usually within a few hours!</p>
-    <a href="https://wa.link/mwi33t" target="_blank" rel="noopener"
-       style="display:flex;align-items:center;gap:12px;background:#25D366;color:#fff;text-decoration:none;padding:14px 20px;margin-bottom:12px;font-family:'Poppins',sans-serif;font-size:13px;font-weight:700;letter-spacing:0.06em;">
-      <span style="font-size:20px;">💬</span>
-      <div style="text-align:left;">
-        <div>Message me on WhatsApp</div>
-        <div style="font-size:11px;font-weight:400;opacity:0.85;">+63 992 301 7830</div>
-      </div>
-    </a>
-    <div style="border:1px solid #e8e2dc;padding:14px 16px;margin-bottom:18px;">
-      <div style="font-size:10px;color:#d4859a;letter-spacing:0.18em;text-transform:uppercase;font-weight:600;margin-bottom:8px;">Or email me — tap to copy</div>
-      <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;">
-        <span id="resumeEmailText" style="font-size:14px;font-weight:600;color:#1a1410;-webkit-user-select:text;-moz-user-select:text;user-select:text;cursor:text;">ajtmendoza123@gmail.com</span>
-        <button onclick="copyResumeEmail()" id="resumeCopyBtn"
-          style="flex-shrink:0;background:#1a1410;color:#fff;border:none;padding:8px 14px;font-size:10px;letter-spacing:0.12em;text-transform:uppercase;font-weight:700;cursor:pointer;font-family:'Poppins',sans-serif;white-space:nowrap;transition:background 0.2s;">
-          Copy
-        </button>
-      </div>
-      <div style="font-size:11px;color:#a09890;margin-top:8px;line-height:1.6;">Subject: <em style="-webkit-user-select:text;user-select:text;">Resume Request — [Your Name]</em></div>
+<div class="rp-overlay" id="resumePopup">
+  <div class="rp-box">
+
+    <!-- Header -->
+    <div class="rp-head">
+      <button class="rp-close" onclick="closeResumePopup()" aria-label="Close">&#x2715;</button>
+      <div class="rp-eyebrow">&#x1F4C4; Resume Request</div>
+      <h3 class="rp-head-title">Glad you&#x2019;re here!<br>Let&#x2019;s connect &#x1F338;</h3>
+      <p class="rp-head-sub">I&#x2019;m Anne &mdash; an Executive VA with 6+ years of experience in operations, social media, and email marketing. I share my resume personally so I know who I&#x2019;m connecting with.</p>
     </div>
-    <p style="font-size:11px;color:#b0a8a0;text-align:center;margin:0;">I reply within 24 hours · Always free to request 💛</p>
+
+    <!-- Step bar -->
+    <div class="rp-stepbar">
+      <div class="rp-si active" id="rpS1">
+        <div class="rp-si-num" id="rpD1">1</div>
+        <div class="rp-si-lbl">Your Info</div>
+        <div class="rp-si-line"></div>
+      </div>
+      <div class="rp-si" id="rpS2">
+        <div class="rp-si-num" id="rpD2">2</div>
+        <div class="rp-si-lbl">Send Request</div>
+        <div class="rp-si-line"></div>
+      </div>
+      <div class="rp-si" id="rpS3">
+        <div class="rp-si-num" id="rpD3">3</div>
+        <div class="rp-si-lbl">Done!</div>
+      </div>
+    </div>
+
+    <div class="rp-body">
+
+      <!-- Step 1 -->
+      <div id="resumeStep1">
+        <p class="rp-step-title">Nice to meet you! <em>Quick intro so I can send this your way.</em></p>
+        <div class="rp-row-2">
+          <div class="rp-field">
+            <label class="rp-lbl">Name <span class="req">*</span></label>
+            <input class="rp-input" id="rName" type="text" placeholder="Maria Santos" autocomplete="name">
+          </div>
+          <div class="rp-field">
+            <label class="rp-lbl">Email <span class="req">*</span></label>
+            <input class="rp-input" id="rEmail" type="email" placeholder="maria@email.com" autocomplete="email">
+          </div>
+        </div>
+        <div class="rp-field">
+          <label class="rp-lbl">WhatsApp <span class="opt">optional</span></label>
+          <input class="rp-input" id="rWa" type="tel" placeholder="+63 912 345 6789" autocomplete="tel">
+        </div>
+        <div class="rp-field">
+          <label class="rp-lbl">Message <span class="opt">optional</span></label>
+          <textarea class="rp-ta" id="rMsg" placeholder="e.g. Hi Anne! I&#x2019;m a hiring manager looking for a VA."></textarea>
+        </div>
+        <div class="rp-err" id="rErr"></div>
+        <button class="rp-btn" onclick="resumeNext()">Next Step &nbsp;&#x2192;</button>
+        <p class="rp-note">&#x1F49B; I reply within 24 hours &nbsp;&middot;&nbsp; Always free &nbsp;&middot;&nbsp; No spam, ever</p>
+      </div>
+
+      <!-- Step 2 -->
+      <div id="resumeStep2" style="display:none;">
+        <p class="rp-step-title">One last step! <em>Choose how you&#x2019;d like to reach me.</em></p>
+        <p style="font-size:13px;color:#666;line-height:1.7;margin:0 0 16px;">Click below &mdash; it opens a pre-filled message ready to send. I&#x2019;ll get back to you with my resume ASAP! &#x1F338;</p>
+        <a id="resumeWaBtn" href="#" target="_blank" rel="noopener" class="rp-send wa">
+          <span class="rp-send-icon">&#x1F4AC;</span>
+          <div>
+            <div class="rp-send-lbl">Send via WhatsApp</div>
+            <div class="rp-send-sub">Opens WhatsApp with your info pre-filled</div>
+          </div>
+          <span class="rp-send-arr">&#x2192;</span>
+        </a>
+        <div class="rp-divider"><hr><span>or</span><hr></div>
+        <a id="resumeEmailBtn" href="#" class="rp-send em">
+          <span class="rp-send-icon">&#x2709;&#xFE0F;</span>
+          <div>
+            <div class="rp-send-lbl">Send via Email</div>
+            <div class="rp-send-sub">Opens your email app, subject &amp; body ready</div>
+          </div>
+          <span class="rp-send-arr">&#x2192;</span>
+        </a>
+        <button class="rp-back" onclick="resumeBack()">&#x2190; Back</button>
+      </div>
+
+      <!-- Step 3 -->
+      <div id="resumeStep3" style="display:none;">
+        <div class="rp-ty">
+          <span class="rp-ty-ico">&#x1F338;</span>
+          <div class="rp-ty-tag">Request Sent!</div>
+          <div class="rp-ty-title">You&#x2019;re all set!<br>Talk soon &#x1F49B;</div>
+          <p class="rp-ty-sub">Thank you for reaching out! I&#x2019;ll personally send my resume your way &mdash; usually within a few hours. Looking forward to connecting with you! &#x1F338;</p>
+          <button class="rp-btn" onclick="closeResumePopup()" style="max-width:200px;margin:0 auto;">Close &nbsp;&#x2715;</button>
+        </div>
+      </div>
+
+    </div>
   </div>
 </div>
+<script>
+function setResumeStep(n){
+  // steps visibility
+  document.getElementById('resumeStep1').style.display=n===1?'block':'none';
+  document.getElementById('resumeStep2').style.display=n===2?'block':'none';
+  document.getElementById('resumeStep3').style.display=n===3?'block':'none';
+  // step indicators
+  [1,2,3].forEach(function(i){
+    var s=document.getElementById('rpS'+i);
+    var d=document.getElementById('rpD'+i);
+    if(!s||!d)return;
+    s.className='rp-si'+(i<n?' done':i===n?' active':'');
+    d.textContent=i<n?'✓':String(i);
+  });
+}
+function openResumePopup(){
+  var p=document.getElementById('resumePopup');if(!p)return;
+  ['rName','rEmail','rWa','rMsg'].forEach(function(id){var el=document.getElementById(id);if(el)el.value='';});
+  document.getElementById('rErr').style.display='none';
+  setResumeStep(1);
+  p.style.display='flex';
+  document.body.style.overflow='hidden';
+  p.onclick=function(e){if(e.target===p)closeResumePopup();};
+}
+function closeResumePopup(){
+  var p=document.getElementById('resumePopup');
+  if(p)p.style.display='none';
+  document.body.style.overflow='';
+}
+function resumeNext(){
+  var name=document.getElementById('rName').value.trim();
+  var email=document.getElementById('rEmail').value.trim();
+  var wa=document.getElementById('rWa').value.trim();
+  var msg=document.getElementById('rMsg').value.trim();
+  var err=document.getElementById('rErr');
+  if(!name||!email){
+    err.textContent=!name&&!email?'Please enter your name and email.':!name?'Please enter your name.':'Please enter your email address.';
+    err.style.display='block';return;
+  }
+  if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)){err.textContent='Please enter a valid email address.';err.style.display='block';return;}
+  err.style.display='none';
+  var nl='\n';
+  var waText='Hi Anne! 🌸 I came across your profile and I\'d love to receive your resume.'+nl+nl+'Name: '+name+nl+'Email: '+email+(wa?nl+'WhatsApp: '+wa:'')+(msg?nl+'Note: '+msg:'')+nl+nl+'Looking forward to connecting with you!';
+  var wb=document.getElementById('resumeWaBtn');
+  wb.href='https://wa.me/639923017830?text='+encodeURIComponent(waText);
+  wb.onclick=function(){setTimeout(resumeDone,800);};
+  var sub='Resume Request - '+name;
+  var body='Hi Anne! 🌸'+nl+nl+'I came across your profile and I\'d love to receive your resume. I\'m excited to learn more about your experience in virtual assistance, operations, and social media management.'+nl+nl+'Name: '+name+nl+'Email: '+email+(wa?nl+'WhatsApp: '+wa:'')+(msg?nl+'Note: '+msg:'')+nl+nl+'Looking forward to connecting!'+nl+name;
+  var eb=document.getElementById('resumeEmailBtn');
+  eb.href='mailto:ajtmendoza123@gmail.com?subject='+encodeURIComponent(sub)+'&body='+encodeURIComponent(body);
+  eb.onclick=function(){setTimeout(resumeDone,800);};
+  setResumeStep(2);
+}
+function resumeDone(){
+  setResumeStep(3);
+}
+function resumeBack(){
+  setResumeStep(1);
+}
+document.addEventListener('keydown',function(e){if(e.key==='Escape')closeResumePopup();});
+</script>
+
+
+
+
+
 
 <script src="js/main.js?v=11"></script>
 <span style="display:none" aria-hidden="true">© 2019 Proassistanne by Anne Joy Therese Mendoza. All content, text, and design are protected intellectual property. Unauthorized copying or reproduction is prohibited.</span>
+
+<!-- PORTFOLIO POPUP -->
+<style>
+/* ═══ PORTFOLIO POPUP (same design as resume popup) ═══ */
+.pp-overlay{
+  display:none;position:fixed;inset:0;z-index:2000;
+  background:rgba(10,6,18,0.80);backdrop-filter:blur(8px);
+  align-items:center;justify-content:center;
+  padding:16px;box-sizing:border-box;
+}
+.pp-box{
+  background:#fff;max-width:460px;width:100%;margin:auto;
+  position:relative;max-height:92vh;overflow-y:auto;
+  border-radius:16px;
+  box-shadow:0 24px 80px rgba(0,0,0,0.35);
+  font-family:'Poppins',sans-serif;
+}
+.pp-head{
+  background:#1a1020;
+  border-radius:16px 16px 0 0;
+  padding:28px 28px 24px;
+  position:relative;
+}
+.pp-close{
+  position:absolute;top:12px;right:12px;
+  background:rgba(255,255,255,0.10);
+  border:1px solid rgba(255,255,255,0.18);
+  color:rgba(255,255,255,0.65);
+  font-size:14px;width:28px;height:28px;
+  border-radius:50%;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  transition:background 0.2s;line-height:1;
+}
+.pp-close:hover{background:rgba(255,255,255,0.22);color:#fff;}
+.pp-eyebrow{
+  display:inline-block;
+  background:rgba(212,133,154,0.20);
+  border:1px solid rgba(212,133,154,0.35);
+  color:#d4859a;font-size:9px;letter-spacing:0.22em;
+  text-transform:uppercase;font-weight:700;
+  padding:3px 10px;border-radius:20px;margin-bottom:12px;
+}
+.pp-head-title{
+  font-family:'Playfair Display',Georgia,serif;
+  font-size:24px;color:#fff;font-style:italic;
+  line-height:1.3;margin:0 0 8px;
+}
+.pp-head-sub{font-size:12px;color:rgba(255,255,255,0.45);line-height:1.6;margin:0;}
+.pp-stepbar{
+  display:flex;align-items:center;
+  padding:18px 28px 0;
+  gap:0;
+}
+.pp-si{display:flex;align-items:center;gap:8px;flex:1;}
+.pp-si:last-child{flex:0 0 auto;}
+.pp-si-num{
+  width:26px;height:26px;border-radius:50%;
+  border:2px solid #e0e0e0;color:#bbb;
+  background:#fff;font-size:11px;font-weight:700;
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;transition:all 0.25s;
+}
+.pp-si-lbl{font-size:10px;color:#aaa;font-weight:500;white-space:nowrap;transition:color 0.25s;}
+.pp-si-line{flex:1;height:2px;background:#ececec;margin:0 6px;transition:background 0.25s;}
+.pp-si.active .pp-si-num{border-color:#d4859a;background:#d4859a;color:#fff;}
+.pp-si.active .pp-si-lbl{color:#1a1020;font-weight:600;}
+.pp-si.done .pp-si-num{border-color:#d4859a;background:#fdf0f3;color:#d4859a;}
+.pp-si.done .pp-si-line{background:#d4859a;}
+.pp-body{padding:22px 28px 28px;}
+.pp-step-title{font-size:14px;font-weight:600;color:#0f0f0f;margin:0 0 16px;line-height:1.4;}
+.pp-step-title em{color:#d4859a;font-style:normal;}
+.pp-field{margin-bottom:13px;}
+.pp-row-2{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+@media(max-width:420px){.pp-row-2{grid-template-columns:1fr;}}
+.pp-lbl{
+  display:flex;align-items:center;gap:5px;
+  font-size:10px;color:#555;letter-spacing:0.12em;
+  text-transform:uppercase;font-weight:600;margin-bottom:6px;
+}
+.pp-lbl .req{color:#d4859a;}
+.pp-lbl .opt{
+  font-size:9.5px;color:#aaa;font-weight:400;
+  text-transform:none;letter-spacing:0;
+  background:#f5f5f5;padding:1px 7px;border-radius:10px;
+}
+.pp-input,.pp-ta{
+  width:100%;box-sizing:border-box;
+  border:1.5px solid #e8e8e8;
+  padding:10px 13px;
+  font-family:'Poppins',sans-serif;font-size:13px;color:#0f0f0f;
+  outline:none;background:#fafafa;
+  border-radius:8px;transition:border-color 0.2s,background 0.2s;
+}
+.pp-input:focus,.pp-ta:focus{border-color:#d4859a;background:#fff;}
+.pp-ta{resize:vertical;min-height:74px;}
+.pp-err{
+  display:none;font-size:12px;color:#c93838;
+  margin-bottom:12px;padding:10px 13px;
+  background:#fef5f5;border:1.5px solid #f5c6c6;
+  border-radius:8px;line-height:1.5;
+}
+.pp-btn{
+  width:100%;background:#0f0f0f;color:#fff;border:none;
+  padding:13px 20px;
+  font-family:'Poppins',sans-serif;font-size:11px;
+  font-weight:700;letter-spacing:0.12em;text-transform:uppercase;
+  cursor:pointer;border-radius:8px;
+  transition:background 0.2s;
+  display:flex;align-items:center;justify-content:center;gap:8px;
+}
+.pp-btn:hover{background:#d4859a;}
+.pp-note{font-size:11px;color:#aaa;text-align:center;margin:11px 0 0;line-height:1.6;}
+.pp-send{
+  display:flex;align-items:center;gap:14px;
+  color:#fff;text-decoration:none;
+  padding:15px 16px;margin-bottom:10px;
+  border-radius:10px;
+  transition:opacity 0.18s,transform 0.18s;
+  cursor:pointer;
+}
+.pp-send:hover{opacity:0.92;transform:translateY(-1px);}
+.pp-send.wa{background:linear-gradient(135deg,#25D366,#1aab52);}
+.pp-send.em{background:linear-gradient(135deg,#1a1020,#2d1f35);}
+.pp-send-icon{font-size:22px;flex-shrink:0;}
+.pp-send-lbl{font-size:13px;font-weight:700;}
+.pp-send-sub{font-size:11px;opacity:0.75;margin-top:2px;}
+.pp-send-arr{margin-left:auto;font-size:16px;opacity:0.5;}
+.pp-divider{display:flex;align-items:center;gap:10px;margin:2px 0 8px;}
+.pp-divider hr{flex:1;border:none;border-top:1px solid #ececec;}
+.pp-divider span{font-size:11px;color:#bbb;}
+.pp-back{
+  background:none;border:none;color:#aaa;
+  font-family:'Poppins',sans-serif;font-size:12px;
+  cursor:pointer;display:flex;align-items:center;
+  justify-content:center;gap:4px;
+  margin:10px auto 0;padding:6px 12px;border-radius:6px;
+  transition:color 0.2s,background 0.2s;
+}
+.pp-back:hover{color:#0f0f0f;background:#f5f5f5;}
+.pp-ty{text-align:center;padding:8px 0 4px;}
+.pp-ty-ico{font-size:54px;display:block;margin-bottom:14px;}
+.pp-ty-tag{
+  display:inline-block;
+  background:#fdf0f3;color:#d4859a;
+  font-size:9px;letter-spacing:0.22em;text-transform:uppercase;
+  font-weight:700;padding:4px 12px;border-radius:20px;margin-bottom:14px;
+}
+.pp-ty-title{
+  font-family:'Playfair Display',Georgia,serif;
+  font-size:22px;color:#0f0f0f;font-style:italic;
+  line-height:1.3;margin-bottom:10px;
+}
+.pp-ty-sub{font-size:13px;color:#666;line-height:1.75;margin-bottom:24px;}
+</style>
+
+<div class="pp-overlay" id="portfolioPopup">
+  <div class="pp-box">
+
+    <!-- Header -->
+    <div class="pp-head">
+      <button class="pp-close" onclick="closePortfolioPopup()" aria-label="Close">&#x2715;</button>
+      <div class="pp-eyebrow">&#x1F5C2;&#xFE0F; Portfolio Access</div>
+      <h3 class="pp-head-title">So happy you want<br>to see my work! &#x1F338;</h3>
+      <p class="pp-head-sub">I&#x2019;m Anne &mdash; Executive VA, Social Media Manager, and Email Marketer with 6+ years of real client work. I share my portfolio personally so I know who I&#x2019;m connecting with.</p>
+    </div>
+
+    <!-- Step bar -->
+    <div class="pp-stepbar">
+      <div class="pp-si active" id="ppS1">
+        <div class="pp-si-num" id="ppD1">1</div>
+        <div class="pp-si-lbl">Your Info</div>
+        <div class="pp-si-line"></div>
+      </div>
+      <div class="pp-si" id="ppS2">
+        <div class="pp-si-num" id="ppD2">2</div>
+        <div class="pp-si-lbl">How to Reach Me</div>
+        <div class="pp-si-line"></div>
+      </div>
+      <div class="pp-si" id="ppS3">
+        <div class="pp-si-num" id="ppD3">3</div>
+        <div class="pp-si-lbl">Done!</div>
+      </div>
+    </div>
+
+    <div class="pp-body">
+
+      <!-- Step 1 -->
+      <div id="portStep1">
+        <p class="pp-step-title">Nice to meet you! <em>A quick intro so I can send the link right over.</em></p>
+        <div class="pp-row-2">
+          <div class="pp-field">
+            <label class="pp-lbl">Name <span class="req">*</span></label>
+            <input class="pp-input" id="pName" type="text" placeholder="Maria Santos" autocomplete="name">
+          </div>
+          <div class="pp-field">
+            <label class="pp-lbl">Email <span class="req">*</span></label>
+            <input class="pp-input" id="pEmail" type="email" placeholder="maria@email.com" autocomplete="email">
+          </div>
+        </div>
+        <div class="pp-field">
+          <label class="pp-lbl">WhatsApp <span class="opt">optional</span></label>
+          <input class="pp-input" id="pWa" type="tel" placeholder="+63 912 345 6789" autocomplete="tel">
+        </div>
+        <div class="pp-field">
+          <label class="pp-lbl">Message <span class="opt">optional</span></label>
+          <textarea class="pp-ta" id="pMsg" placeholder="e.g. Hi Anne! I&#x2019;m looking for a VA for my business."></textarea>
+        </div>
+        <div class="pp-err" id="pErr"></div>
+        <button class="pp-btn" onclick="portNext()">Next Step &nbsp;&#x2192;</button>
+        <p class="pp-note">&#x1F49B; I reply within 24 hours &nbsp;&middot;&nbsp; Free to view &nbsp;&middot;&nbsp; No spam, ever</p>
+      </div>
+
+      <!-- Step 2 -->
+      <div id="portStep2" style="display:none;">
+        <p class="pp-step-title">One last step! <em>Choose how you&#x2019;d like to reach me.</em></p>
+        <p style="font-size:13px;color:#666;line-height:1.7;margin:0 0 16px;">Click below &mdash; it opens a pre-filled message ready to send. I&#x2019;ll reply with the portfolio link ASAP! &#x1F338;</p>
+        <a id="portWaBtn" href="#" target="_blank" rel="noopener" class="pp-send wa">
+          <span class="pp-send-icon">&#x1F4AC;</span>
+          <div>
+            <div class="pp-send-lbl">Send via WhatsApp</div>
+            <div class="pp-send-sub">Opens WhatsApp with your info pre-filled</div>
+          </div>
+          <span class="pp-send-arr">&#x2192;</span>
+        </a>
+        <div class="pp-divider"><hr><span>or</span><hr></div>
+        <a id="portEmailBtn" href="#" class="pp-send em">
+          <span class="pp-send-icon">&#x2709;&#xFE0F;</span>
+          <div>
+            <div class="pp-send-lbl">Send via Email</div>
+            <div class="pp-send-sub">Opens your email app, subject &amp; body ready</div>
+          </div>
+          <span class="pp-send-arr">&#x2192;</span>
+        </a>
+        <button class="pp-back" onclick="portBack()">&#x2190; Back</button>
+      </div>
+
+      <!-- Step 3 -->
+      <div id="portStep3" style="display:none;">
+        <div class="pp-ty">
+          <span class="pp-ty-ico">&#x1F338;</span>
+          <div class="pp-ty-tag">Request Sent!</div>
+          <div class="pp-ty-title">You&#x2019;re all set!<br>Talk soon &#x1F49B;</div>
+          <p class="pp-ty-sub">Thank you so much for your interest! I&#x2019;ll personally send you the portfolio link &mdash; usually within a few hours. I can&#x2019;t wait to show you what I&#x2019;ve been working on! &#x1F338;</p>
+          <button class="pp-btn" onclick="closePortfolioPopup()" style="max-width:200px;margin:0 auto;">Close &nbsp;&#x2715;</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+<script>
+function setPortStep(n){
+  document.getElementById('portStep1').style.display=n===1?'block':'none';
+  document.getElementById('portStep2').style.display=n===2?'block':'none';
+  document.getElementById('portStep3').style.display=n===3?'block':'none';
+  [1,2,3].forEach(function(i){
+    var s=document.getElementById('ppS'+i);
+    var d=document.getElementById('ppD'+i);
+    if(!s||!d)return;
+    s.className='pp-si'+(i<n?' done':i===n?' active':'');
+    d.textContent=i<n?'✓':String(i);
+  });
+}
+function openPortfolioPopup(){
+  var p=document.getElementById('portfolioPopup');if(!p)return;
+  ['pName','pEmail','pWa','pMsg'].forEach(function(id){var el=document.getElementById(id);if(el)el.value='';});
+  document.getElementById('pErr').style.display='none';
+  setPortStep(1);
+  p.style.display='flex';
+  document.body.style.overflow='hidden';
+  p.onclick=function(e){if(e.target===p)closePortfolioPopup();};
+}
+function closePortfolioPopup(){
+  var p=document.getElementById('portfolioPopup');
+  if(p)p.style.display='none';
+  document.body.style.overflow='';
+}
+function portNext(){
+  var name=document.getElementById('pName').value.trim();
+  var email=document.getElementById('pEmail').value.trim();
+  var wa=document.getElementById('pWa').value.trim();
+  var msg=document.getElementById('pMsg').value.trim();
+  var err=document.getElementById('pErr');
+  if(!name||!email){
+    err.textContent=!name&&!email?'Please enter your name and email.':!name?'Please enter your name.':'Please enter your email address.';
+    err.style.display='block';return;
+  }
+  if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)){err.textContent='Please enter a valid email address.';err.style.display='block';return;}
+  err.style.display='none';
+  var nl='\n';
+  var waText='Hi Anne! 🌸 I came across your profile and I\'d love to see your portfolio!'+nl+nl+'Name: '+name+nl+'Email: '+email+(wa?nl+'WhatsApp: '+wa:'')+(msg?nl+'Note: '+msg:'')+nl+nl+'Looking forward to connecting with you!';
+  var wb=document.getElementById('portWaBtn');
+  wb.href='https://wa.me/639923017830?text='+encodeURIComponent(waText);
+  wb.onclick=function(){setTimeout(portDone,800);};
+  var sub='Portfolio Request - '+name;
+  var body='Hi Anne! 🌸'+nl+nl+'I came across your profile and I\'d love to see your portfolio! I\'m interested in your work in virtual assistance, social media management, and email marketing.'+nl+nl+'Name: '+name+nl+'Email: '+email+(wa?nl+'WhatsApp: '+wa:'')+(msg?nl+'Note: '+msg:'')+nl+nl+'Looking forward to connecting!'+nl+name;
+  var eb=document.getElementById('portEmailBtn');
+  eb.href='mailto:ajtmendoza123@gmail.com?subject='+encodeURIComponent(sub)+'&body='+encodeURIComponent(body);
+  eb.onclick=function(){setTimeout(portDone,800);};
+  setPortStep(2);
+}
+function portDone(){
+  setPortStep(3);
+}
+function portBack(){
+  setPortStep(1);
+}
+document.addEventListener('keydown',function(e){if(e.key==='Escape')closePortfolioPopup();});
+</script>
 
 <!-- FLOATING FREE RESOURCES TAB -->
 <div class="free-res-float" id="freeResFloat">

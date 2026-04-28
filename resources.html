@@ -268,7 +268,7 @@
   <span id="followPopupResName"></span>
 </div>
 
-<!-- 2-STEP RESOURCE GATE -->
+<!-- 3-STEP RESOURCE GATE -->
 <style>
 .rgate-overlay{position:fixed;inset:0;background:rgba(10,8,6,0.72);backdrop-filter:blur(4px);z-index:2200;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity 0.3s;padding:16px;}
 .rgate-overlay.open{opacity:1;pointer-events:all;}
@@ -284,9 +284,9 @@
 .rgate-title{font-family:'DM Serif Display','Playfair Display',serif;font-size:22px;color:#1a1410;margin:0 0 8px;line-height:1.25;}
 .rgate-sub{font-size:13.5px;color:#7a7068;line-height:1.6;font-family:'Poppins',sans-serif;margin:0;}
 .rgate-res-pill{display:inline-block;background:#fdf3f6;border:1px solid #f5d0dc;color:var(--accent,#d4859a);font-size:11px;font-family:'Poppins',sans-serif;font-weight:600;letter-spacing:0.08em;padding:3px 12px;border-radius:20px;margin-bottom:14px;}
-.rgate-socials{display:flex;flex-direction:column;gap:10px;padding:16px 32px 12px;}
+.rgate-socials{display:flex;flex-direction:column;gap:10px;padding:20px 32px 8px;}
 .rgate-soc-btn{display:flex;align-items:center;gap:14px;padding:13px 18px;border-radius:3px;text-decoration:none;font-family:'Poppins',sans-serif;font-size:13px;font-weight:600;transition:transform 0.15s,box-shadow 0.15s;}
-.rgate-soc-btn:hover{transform:translateY(-1px);box-shadow:0 4px 16px rgba(0,0,0,0.12);}
+.rgate-soc-btn:hover{transform:translateY(-1px);box-shadow:0 4px 16px rgba(0,0,0,0.14);}
 .rgate-soc-btn.ig{background:linear-gradient(135deg,#f9ce34,#ee2a7b,#6228d7);color:#fff;}
 .rgate-soc-btn.fb{background:#1877f2;color:#fff;}
 .rgate-soc-btn.tt{background:#010101;color:#fff;}
@@ -295,171 +295,263 @@
 .rgate-soc-btn-name{display:block;}
 .rgate-soc-btn-handle{display:block;font-size:11px;font-weight:400;opacity:0.85;}
 .rgate-soc-arrow{font-size:14px;opacity:0.7;}
+.rgate-soc-note{font-family:'Poppins',sans-serif;font-size:11.5px;color:#a09890;text-align:center;padding:6px 32px 4px;line-height:1.6;}
 .rgate-name-wrap{padding:0 32px 6px;}
 .rgate-name-label{display:block;font-family:'Poppins',sans-serif;font-size:11px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:#9a9088;margin-bottom:7px;}
 .rgate-name-input{width:100%;box-sizing:border-box;padding:11px 14px;border:1.5px solid #ede8e3;border-radius:3px;font-family:'Poppins',sans-serif;font-size:13px;color:#1a1410;outline:none;transition:border-color 0.2s;}
 .rgate-name-err{display:none;font-family:'Poppins',sans-serif;font-size:11px;color:#c93838;margin-top:5px;}
 .rgate-done-btn{margin:12px 32px 24px;width:calc(100% - 64px);display:block;background:var(--accent,#d4859a);color:#fff;border:none;padding:14px;font-family:'Poppins',sans-serif;font-size:13px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;cursor:pointer;border-radius:3px;transition:background 0.2s,transform 0.15s;text-align:center;}
 .rgate-done-btn:hover{background:#c4728a;transform:translateY(-1px);}
-.rgate-contact-wrap{padding:12px 32px 4px;display:flex;flex-direction:column;gap:10px;}
-.rgate-contact-card{border:1.5px solid #ede8e3;border-radius:3px;padding:14px 16px;display:flex;align-items:flex-start;gap:14px;text-decoration:none;transition:border-color 0.2s,background 0.2s;}
-.rgate-contact-card:hover{border-color:var(--accent,#d4859a);background:#fdf7f8;}
-.rgate-contact-icon{font-size:22px;flex-shrink:0;margin-top:2px;}
-.rgate-contact-label{font-family:'Poppins',sans-serif;font-size:13px;font-weight:600;color:#1a1410;display:block;margin-bottom:3px;}
-.rgate-contact-hint{font-family:'Poppins',sans-serif;font-size:12px;color:#9a9088;line-height:1.5;}
-.rgate-msg-preview{background:#f9f6f3;border-left:3px solid var(--accent,#d4859a);padding:12px 14px;font-family:'Poppins',sans-serif;font-size:12px;color:#5a5048;line-height:1.6;margin:8px 32px 0;border-radius:0 2px 2px 0;font-style:italic;}
-.rgate-copy-btn{display:block;margin:8px 32px 0;padding:10px;background:#f7f2ee;border:none;border-radius:2px;font-family:'Poppins',sans-serif;font-size:11px;font-weight:600;color:var(--accent,#d4859a);cursor:pointer;letter-spacing:0.06em;text-transform:uppercase;width:calc(100% - 64px);text-align:center;transition:background 0.2s;}
-.rgate-copy-btn:hover{background:#f0e8e4;}
-.rgate-copy-btn.copied{background:#e8f5ec;color:#2a7a3f;}
 .rgate-note{font-family:'Poppins',sans-serif;font-size:12px;color:#b0a89e;text-align:center;padding:12px 32px 24px;line-height:1.6;}
 </style>
 
 <div class="rgate-overlay" id="rgateOverlay">
   <div class="rgate-box" onclick="event.stopPropagation()">
     <button class="rgate-close" onclick="closeRgate()" aria-label="Close">&#x2715;</button>
-    <div class="rgate-progress"><div class="rgate-progress-fill" id="rgateProgress" style="width:50%"></div></div>
+    <div class="rgate-progress"><div class="rgate-progress-fill" id="rgateProgress" style="width:25%"></div></div>
 
-    <!-- STEP 1 -->
+    <!-- STEP 1: Follow on social -->
     <div id="rgateStep1">
       <div class="rgate-header">
-        <div class="rgate-step-label"><span>1</span> Step 1 of 2</div>
+        <div class="rgate-step-label"><span>1</span> Step 1 of 3</div>
         <div class="rgate-res-pill" id="rgateResName">Free Resource</div>
-        <h3 class="rgate-title">Follow me on social media &#x1F49B;</h3>
-        <p class="rgate-sub">These resources are completely free. The only thing I ask is that you follow me &mdash; it helps me keep creating more freebies for VAs like you!</p>
+        <h3 class="rgate-title">Follow me first! &#x1F338;</h3>
+        <p class="rgate-sub">These resources are 100% free &#x1F49B; The only thing I ask is that you follow me on social so I can keep sharing content like this!</p>
       </div>
       <div class="rgate-socials">
+        <a href="https://www.facebook.com/ProAssistAnne" target="_blank" rel="noopener" class="rgate-soc-btn fb">
+          <span class="rgate-soc-btn-icon">&#x1F4D8;</span>
+          <span class="rgate-soc-btn-text">
+            <span class="rgate-soc-btn-name">Follow on Facebook</span>
+            <span class="rgate-soc-btn-handle">facebook.com/ProAssistAnne</span>
+          </span>
+          <span class="rgate-soc-arrow">&#x2197;</span>
+        </a>
         <a href="https://www.instagram.com/proassistanne/" target="_blank" rel="noopener" class="rgate-soc-btn ig">
           <span class="rgate-soc-btn-icon">&#x1F4F8;</span>
-          <span class="rgate-soc-btn-text"><span class="rgate-soc-btn-name">Follow on Instagram</span><span class="rgate-soc-btn-handle">@proassistanne</span></span>
-          <span class="rgate-soc-arrow">&#x2197;&#xFE0F;</span>
-        </a>
-        <a href="https://www.facebook.com/ProAssistAnne/" target="_blank" rel="noopener" class="rgate-soc-btn fb">
-          <span class="rgate-soc-btn-icon">&#x1F465;</span>
-          <span class="rgate-soc-btn-text"><span class="rgate-soc-btn-name">Follow on Facebook</span><span class="rgate-soc-btn-handle">ProAssistAnne</span></span>
-          <span class="rgate-soc-arrow">&#x2197;&#xFE0F;</span>
+          <span class="rgate-soc-btn-text">
+            <span class="rgate-soc-btn-name">Follow on Instagram</span>
+            <span class="rgate-soc-btn-handle">@proassistanne</span>
+          </span>
+          <span class="rgate-soc-arrow">&#x2197;</span>
         </a>
         <a href="https://www.tiktok.com/@kaendiary1" target="_blank" rel="noopener" class="rgate-soc-btn tt">
           <span class="rgate-soc-btn-icon">&#x1F3B5;</span>
-          <span class="rgate-soc-btn-text"><span class="rgate-soc-btn-name">Follow on TikTok</span><span class="rgate-soc-btn-handle">@kaendiary1</span></span>
-          <span class="rgate-soc-arrow">&#x2197;&#xFE0F;</span>
-        </a>
-        <a href="https://www.linkedin.com/in/annejoytherese/" target="_blank" rel="noopener" class="rgate-soc-btn" style="background:#0077b5;color:#fff;">
-          <span class="rgate-soc-btn-icon">&#x1F4BC;</span>
-          <span class="rgate-soc-btn-text"><span class="rgate-soc-btn-name">Follow on LinkedIn</span><span class="rgate-soc-btn-handle">annejoytherese</span></span>
-          <span class="rgate-soc-arrow">&#x2197;&#xFE0F;</span>
+          <span class="rgate-soc-btn-text">
+            <span class="rgate-soc-btn-name">Follow on TikTok</span>
+            <span class="rgate-soc-btn-handle">@kaendiary1</span>
+          </span>
+          <span class="rgate-soc-arrow">&#x2197;</span>
         </a>
       </div>
-      <div class="rgate-name-wrap">
-        <label class="rgate-name-label" for="rgateName">Your name <span style="color:var(--accent,#d4859a);">*</span></label>
-        <input class="rgate-name-input" type="text" id="rgateName" placeholder="e.g. Maria Santos" maxlength="60"
-          onfocus="this.style.borderColor='var(--accent,#d4859a)'"
-          onblur="this.style.borderColor='#ede8e3'">
-        <div class="rgate-name-err" id="rgateNameErr">Please enter your name to continue.</div>
-      </div>
-      <button class="rgate-done-btn" onclick="rgateNextStep()">Done! I followed you &mdash; Next Step</button>
+      <p class="rgate-soc-note">&#x2728; Tap to follow, then come back and continue below.</p>
+      <button class="rgate-done-btn" onclick="rgateToStep2()">I followed — Next &#x2192;</button>
     </div>
 
-    <!-- STEP 2 -->
+    <!-- STEP 2: Fill out the form -->
     <div id="rgateStep2" style="display:none;">
       <div class="rgate-header">
-        <div class="rgate-step-label"><span>2</span> Step 2 of 2 &mdash; Almost there!</div>
+        <div class="rgate-step-label"><span>2</span> Step 2 of 3</div>
         <div class="rgate-res-pill" id="rgateResName2">Free Resource</div>
-        <h3 class="rgate-title">Send me a quick message</h3>
-        <p class="rgate-sub">Your message is ready below &mdash; copy it and send via email, Facebook DM, or Instagram DM. I will send the files right over!</p>
+        <h3 class="rgate-title">Tell me about yourself &#x1F338;</h3>
+        <p class="rgate-sub">Just fill in your details below so I know who I'm sending this to!</p>
       </div>
-      <div class="rgate-msg-preview" id="rgatePreviewMsg"></div>
-      <button class="rgate-copy-btn" id="rgateMainCopyBtn" onclick="copyRgateMsg()">Copy Message</button>
-      <div class="rgate-contact-wrap">
-        <a href="mailto:annejoytherese@gmail.com" id="rgateEmailLink" class="rgate-contact-card">
-          <span class="rgate-contact-icon">&#x2709;&#xFE0F;</span>
-          <span><span class="rgate-contact-label">Send via Email</span><span class="rgate-contact-hint">annejoytherese@gmail.com</span></span>
-        </a>
-        <a href="https://www.facebook.com/ProAssistAnne/" target="_blank" rel="noopener" class="rgate-contact-card">
-          <span class="rgate-contact-icon">&#x1F4AC;</span>
-          <span><span class="rgate-contact-label">Send via Facebook DM</span><span class="rgate-contact-hint">facebook.com/ProAssistAnne</span></span>
-        </a>
-        <a href="https://www.instagram.com/proassistanne/" target="_blank" rel="noopener" class="rgate-contact-card">
-          <span class="rgate-contact-icon">&#x1F4E9;</span>
-          <span><span class="rgate-contact-label">Send via Instagram DM</span><span class="rgate-contact-hint">@proassistanne</span></span>
-        </a>
+      <div class="rgate-name-wrap" style="margin-top:16px;">
+        <div style="margin-bottom:13px;">
+          <label class="rgate-name-label" for="rgateName">Your Name <span style="color:var(--accent,#d4859a);">*</span></label>
+          <input class="rgate-name-input" type="text" id="rgateName" placeholder="e.g. Maria Santos" maxlength="60"
+            onfocus="this.style.borderColor='var(--accent,#d4859a)'"
+            onblur="this.style.borderColor='#ede8e3'">
+          <div class="rgate-name-err" id="rgateNameErr">Please enter your name to continue.</div>
+        </div>
+        <div style="margin-bottom:13px;">
+          <label class="rgate-name-label" for="rgateEmail">Email Address <span style="color:var(--accent,#d4859a);">*</span></label>
+          <input class="rgate-name-input" type="email" id="rgateEmail" placeholder="e.g. maria@email.com"
+            onfocus="this.style.borderColor='var(--accent,#d4859a)'"
+            onblur="this.style.borderColor='#ede8e3'">
+          <div class="rgate-name-err" id="rgateEmailErr">Please enter a valid email address.</div>
+        </div>
+        <div style="margin-bottom:13px;">
+          <label class="rgate-name-label" for="rgateWhatsapp">WhatsApp Number <span style="font-size:11px;color:#a09890;font-weight:400;text-transform:none;letter-spacing:0;">(optional)</span></label>
+          <input class="rgate-name-input" type="tel" id="rgateWhatsapp" placeholder="e.g. +63 912 345 6789"
+            onfocus="this.style.borderColor='var(--accent,#d4859a)'"
+            onblur="this.style.borderColor='#ede8e3'">
+        </div>
+        <div style="margin-bottom:20px;">
+          <label class="rgate-name-label" for="rgateIgName">Instagram Username <span style="font-size:11px;color:#a09890;font-weight:400;text-transform:none;letter-spacing:0;">(optional)</span></label>
+          <input class="rgate-name-input" type="text" id="rgateIgName" placeholder="e.g. @mariasantos"
+            onfocus="this.style.borderColor='var(--accent,#d4859a)'"
+            onblur="this.style.borderColor='#ede8e3'">
+        </div>
       </div>
-      <p class="rgate-note">&#x1F49B; I reply within 24 hours. No spam, no email lists &mdash; just the resources you asked for!</p>
+      <div style="display:flex;gap:8px;padding:0 32px 24px;">
+        <button onclick="rgateBackTo1()" style="background:none;border:1.5px solid #ede8e3;color:#9a9088;font-family:'Poppins',sans-serif;font-size:12px;font-weight:600;padding:13px 20px;cursor:pointer;border-radius:3px;letter-spacing:0.06em;text-transform:uppercase;transition:border-color 0.2s;">&#x2190; Back</button>
+        <button class="rgate-done-btn" onclick="rgateNextStep()" style="margin:0;flex:1;width:auto;">Next &#x2192;</button>
+      </div>
     </div>
+
+    <!-- STEP 3: Choose how to reach Anne -->
+    <div id="rgateStep3" style="display:none;">
+      <div class="rgate-header">
+        <div class="rgate-step-label"><span>3</span> Step 3 of 3</div>
+        <div class="rgate-res-pill" id="rgateResName3">Free Resource</div>
+        <h3 class="rgate-title">How would you like to reach me? &#x1F338;</h3>
+        <p class="rgate-sub">Choose how you'd like to send your request — I'll get back to you as soon as I can!</p>
+      </div>
+
+      <!-- Facebook option -->
+      <div style="margin:16px 32px 0;border:1px solid #e8e2dc;">
+        <div style="display:flex;align-items:center;gap:14px;background:#1877F2;color:#fff;padding:16px 20px;">
+          <span style="font-size:24px;">&#x1F4AC;</span>
+          <div>
+            <div style="font-family:'Poppins',sans-serif;font-size:13px;font-weight:700;letter-spacing:0.05em;">Message me on Facebook</div>
+            <div style="font-size:11px;font-weight:400;opacity:0.85;margin-top:2px;">Copy the message below, then paste it on Facebook</div>
+          </div>
+        </div>
+        <div style="padding:14px 16px;background:#f7f4f1;">
+          <div style="font-size:10px;color:#d4859a;letter-spacing:0.16em;text-transform:uppercase;font-weight:700;margin-bottom:8px;">&#x1F4CB; Pre-written message — tap to copy</div>
+          <div id="rgateFbMsg" style="font-size:12px;color:#3a3330;line-height:1.7;background:#fff;border:1px solid #e8e2dc;padding:12px 14px;margin-bottom:10px;white-space:pre-wrap;user-select:text;-webkit-user-select:text;cursor:text;"></div>
+          <div style="display:flex;gap:8px;">
+            <button id="rgateFbCopyBtn" onclick="rgateCopyFb()" style="flex:1;background:#1a1410;color:#fff;border:none;padding:10px 14px;font-family:'Poppins',sans-serif;font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;cursor:pointer;">Copy Message</button>
+            <a href="https://www.facebook.com/ProAssistAnne/" target="_blank" rel="noopener"
+               onclick="setTimeout(rgateShowThanks,800)"
+               style="flex:1;display:flex;align-items:center;justify-content:center;background:#1877F2;color:#fff;text-decoration:none;padding:10px 14px;font-family:'Poppins',sans-serif;font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;text-align:center;">Open Facebook &#x2197;</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Email option -->
+      <div style="margin:12px 32px 0;">
+        <a id="rgateEmailBtn" href="#"
+           onclick="setTimeout(rgateShowThanks,800)"
+           style="display:flex;align-items:center;gap:14px;background:#1a1410;color:#fff;text-decoration:none;padding:16px 20px;cursor:pointer;">
+          <span style="font-size:24px;">&#x2709;&#xFE0F;</span>
+          <div>
+            <div style="font-family:'Poppins',sans-serif;font-size:13px;font-weight:700;letter-spacing:0.05em;">Send me an Email</div>
+            <div style="font-size:11px;font-weight:400;opacity:0.85;margin-top:2px;">Opens your email app with message ready to send</div>
+          </div>
+        </a>
+      </div>
+
+      <div style="padding:14px 32px 24px;display:flex;justify-content:center;">
+        <button onclick="rgateBackTo2()" style="background:none;border:none;color:#a09890;font-family:'Poppins',sans-serif;font-size:12px;cursor:pointer;text-decoration:underline;">&#x2190; Back</button>
+      </div>
+    </div>
+
+    <!-- STEP 4: Thank You -->
+    <div id="rgateStep4" style="display:none;text-align:center;padding:36px 32px 40px;">
+      <div style="font-size:52px;margin-bottom:16px;">&#x1F338;</div>
+      <div style="font-size:10px;color:#d4859a;letter-spacing:0.28em;text-transform:uppercase;font-weight:700;margin-bottom:12px;">You're all set!</div>
+      <h3 style="font-family:'DM Serif Display',Georgia,serif;font-size:22px;color:#1a1410;margin-bottom:12px;line-height:1.35;">Thank you so much! &#x1F49B;</h3>
+      <p style="font-size:13px;color:#6b6560;line-height:1.75;margin-bottom:24px;">I'll send your free resource as soon as possible — usually within a few hours! Thank you for the follow, it means a lot to me &#x1F338;</p>
+      <button onclick="closeRgate()" style="background:#d4859a;color:#fff;border:none;padding:13px 32px;font-family:'Poppins',sans-serif;font-size:12px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;cursor:pointer;border-radius:3px;">Close &#x2715;</button>
+    </div>
+
   </div>
 </div>
 <script>
 (function(){
   var _res = "";
-  var _msg = "";
+  var _fbMsg = "";
 
   function openResourceGate(resName) {
     _res = resName || "Free VA Resources";
     setText("rgateResName", _res);
     setText("rgateResName2", _res);
-    show("rgateStep1");
-    hide("rgateStep2");
-    setStyle("rgateProgress", "width", "50%");
-    val("rgateName", "");
-    hide("rgateNameErr");
-    setStyle("rgateName", "borderColor", "#ede8e3");
-    setStyle("rgateMainCopyBtn", null, null);
-    document.getElementById("rgateMainCopyBtn").textContent = "Copy Message";
-    document.getElementById("rgateMainCopyBtn").classList.remove("copied");
+    setText("rgateResName3", _res);
+    show("rgateStep1"); hide("rgateStep2"); hide("rgateStep3"); hide("rgateStep4");
+    setProgress("25%");
+    val("rgateName", ""); val("rgateEmail", ""); val("rgateWhatsapp", ""); val("rgateIgName", "");
+    hide("rgateNameErr"); hide("rgateEmailErr");
+    resetBorder("rgateName"); resetBorder("rgateEmail"); resetBorder("rgateWhatsapp"); resetBorder("rgateIgName");
     document.getElementById("rgateOverlay").classList.add("open");
     document.body.style.overflow = "hidden";
   }
 
+  function rgateToStep2() { hide("rgateStep1"); show("rgateStep2"); setProgress("50%"); }
+  function rgateBackTo1() { hide("rgateStep2"); show("rgateStep1"); setProgress("25%"); }
+  function rgateBackTo2() { hide("rgateStep3"); show("rgateStep2"); setProgress("50%"); }
+
   function rgateNextStep() {
-    var nameVal = (document.getElementById("rgateName").value || "").trim();
-    if (!nameVal) {
-      show("rgateNameErr");
-      document.getElementById("rgateName").focus();
-      return;
-    }
-    hide("rgateNameErr");
-    _msg = "Hi Anne! 💛 My name is " + nameVal + ", and I just followed you on social media! I absolutely love what you share, and I'd be so grateful if you could send me a copy of your free resource: \"" + _res + "\". I'm a fellow VA working hard to grow, and your content has been such an inspiration. Thank you so much in advance! 🌸";
-    setText("rgatePreviewMsg", '"' + _msg + '"');
-    var emailLink = document.getElementById("rgateEmailLink");
-    if (emailLink) {
-      var sub = encodeURIComponent("I followed you - can I have the free resources?");
-      var body = encodeURIComponent("Hi Anne! 💛\n\nMy name is " + nameVal + ", and I just followed you on social media! I absolutely love what you share and it has been so helpful for me as a VA.\n\nI would be so grateful if you could please send me a copy of your free resource: \"" + _res + "\".\n\nI'm working hard to grow my VA business and resources like yours make such a huge difference. Thank you so much for being so generous! 🌸\n\nWith gratitude,\n" + nameVal);
-      emailLink.href = "mailto:annejoytherese@gmail.com?subject=" + sub + "&body=" + body;
-    }
-    hide("rgateStep1");
-    show("rgateStep2");
-    setStyle("rgateProgress", "width", "100%");
+    var nameVal     = (document.getElementById("rgateName").value    || "").trim();
+    var emailVal    = (document.getElementById("rgateEmail").value   || "").trim();
+    var waVal       = (document.getElementById("rgateWhatsapp").value || "").trim();
+    var igVal       = (document.getElementById("rgateIgName").value  || "").trim();
+    var ok = true;
+    if (!nameVal) { show("rgateNameErr"); document.getElementById("rgateName").style.borderColor="#c93838"; ok=false; }
+    else          { hide("rgateNameErr"); resetBorder("rgateName"); }
+    var emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailVal || !emailRe.test(emailVal)) { show("rgateEmailErr"); document.getElementById("rgateEmail").style.borderColor="#c93838"; ok=false; }
+    else { hide("rgateEmailErr"); resetBorder("rgateEmail"); }
+    if (!ok) return;
+
+    // Build Facebook pre-written message
+    _fbMsg = "Hi Anne! \uD83D\uDC9B\n\nI'd love to receive your free resource: \"" + _res + "\"." +
+             "\n\nMy details:\nName: " + nameVal +
+             "\nEmail: " + emailVal +
+             (waVal  ? "\nWhatsApp: " + waVal  : "") +
+             (igVal  ? "\nInstagram: " + igVal : "") +
+             "\n\nI already followed you on Facebook, Instagram, and TikTok! \uD83C\uDF38" +
+             "\n\nThank you so much!\n" + nameVal;
+    document.getElementById("rgateFbMsg").textContent = _fbMsg;
+
+    // Reset copy button
+    var copyBtn = document.getElementById("rgateFbCopyBtn");
+    copyBtn.textContent = "Copy Message";
+    copyBtn.style.background = "#1a1410";
+
+    // Build email link
+    var subject = encodeURIComponent("Free Resource Request \u2014 " + nameVal);
+    var bodyLines = "Hi Anne!\n\nI'd love to receive your free resource: \"" + _res + "\".\n\n" +
+      "My details:\n" +
+      "Name: " + nameVal + "\n" +
+      "Email: " + emailVal +
+      (waVal  ? "\nWhatsApp: " + waVal  : "") +
+      (igVal  ? "\nInstagram: " + igVal : "") +
+      "\n\nI already followed you on Facebook, Instagram, and TikTok! \uD83C\uDF38\n\n" +
+      "Thank you so much!\n" + nameVal;
+    document.getElementById("rgateEmailBtn").href =
+      "mailto:ajtmendoza123@gmail.com?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(bodyLines);
+
+    hide("rgateStep2"); show("rgateStep3");
+    setProgress("75%");
   }
+
+  function rgateCopyFb() {
+    var btn = document.getElementById("rgateFbCopyBtn");
+    function done() { btn.textContent = "Copied! \u2713"; btn.style.background = "#2a9d3f"; setTimeout(function(){ btn.textContent = "Copy Message"; btn.style.background = "#1a1410"; }, 2500); }
+    if (navigator.clipboard) { navigator.clipboard.writeText(_fbMsg).then(done).catch(function(){ fbCopy(_fbMsg); done(); }); }
+    else { fbCopy(_fbMsg); done(); }
+  }
+
+  function fbCopy(t){ var a=document.createElement("textarea"); a.value=t; document.body.appendChild(a); a.select(); document.execCommand("copy"); document.body.removeChild(a); }
+
+  function rgateShowThanks() { hide("rgateStep3"); show("rgateStep4"); setProgress("100%"); }
 
   function closeRgate() {
     document.getElementById("rgateOverlay").classList.remove("open");
     document.body.style.overflow = "";
   }
 
-  function copyRgateMsg() {
-    var text = _msg || "Hi Anne! 💛 I just followed you on social media and I'd love to get a copy of your free VA resources. Thank you so much! 🌸";
-    var btn = document.getElementById("rgateMainCopyBtn");
-    function done(){ btn.textContent = "Copied!"; btn.classList.add("copied"); setTimeout(function(){ btn.textContent = "Copy Message"; btn.classList.remove("copied"); }, 2500); }
-    if (navigator.clipboard) { navigator.clipboard.writeText(text).then(done).catch(function(){ fb(text); done(); }); }
-    else { fb(text); done(); }
-  }
-
-  function fb(t){ var a=document.createElement("textarea"); a.value=t; document.body.appendChild(a); a.select(); document.execCommand("copy"); document.body.removeChild(a); }
   function show(id){ var el=document.getElementById(id); if(el) el.style.display=""; }
   function hide(id){ var el=document.getElementById(id); if(el) el.style.display="none"; }
   function setText(id,t){ var el=document.getElementById(id); if(el) el.textContent=t; }
   function val(id,v){ var el=document.getElementById(id); if(el) el.value=v; }
-  function setStyle(id,prop,v){ var el=document.getElementById(id); if(el && prop) el.style[prop]=v; }
+  function resetBorder(id){ var el=document.getElementById(id); if(el) el.style.borderColor="#ede8e3"; }
+  function setProgress(w){ var el=document.getElementById("rgateProgress"); if(el) el.style.width=w; }
 
   document.getElementById("rgateOverlay").addEventListener("click", function(e){ if(e.target===this) closeRgate(); });
 
-  // Expose to global scope
-  window.openResourceGate = openResourceGate;
-  window.rgateNextStep    = rgateNextStep;
-  window.closeRgate       = closeRgate;
-  window.copyRgateMsg     = copyRgateMsg;
-  // Legacy aliases so main.js does not break
-  window.closeFollowPopup     = closeRgate;
-  window.closeFollowPopupDirect = closeRgate;
+  window.openResourceGate        = openResourceGate;
+  window.rgateToStep2            = rgateToStep2;
+  window.rgateBackTo1            = rgateBackTo1;
+  window.rgateBackTo2            = rgateBackTo2;
+  window.rgateNextStep           = rgateNextStep;
+  window.rgateCopyFb             = rgateCopyFb;
+  window.rgateShowThanks         = rgateShowThanks;
+  window.closeRgate              = closeRgate;
+  window.closeFollowPopup        = closeRgate;
+  window.closeFollowPopupDirect  = closeRgate;
 })();
 </script>
 

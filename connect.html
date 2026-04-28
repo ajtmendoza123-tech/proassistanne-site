@@ -442,38 +442,84 @@
 
 <!-- RESUME POPUP -->
 <div id="resumePopup" style="display:none;position:fixed;inset:0;z-index:2000;background:rgba(26,20,16,0.75);backdrop-filter:blur(4px);align-items:center;justify-content:center;">
-  <div style="background:#fff;max-width:480px;width:92%;margin:auto;position:relative;padding:44px 36px 36px;box-shadow:0 30px 80px rgba(0,0,0,0.22);">
-    <button onclick="closeResumePopup()" style="position:absolute;top:14px;right:16px;background:none;border:none;font-size:20px;cursor:pointer;color:#888;line-height:1;">✕</button>
-    <div style="font-size:36px;margin-bottom:14px;">📄</div>
-    <div style="font-size:10px;color:#d4859a;letter-spacing:0.28em;text-transform:uppercase;font-weight:700;margin-bottom:8px;">Resume Request</div>
-    <h3 style="font-family:'DM Serif Display',Georgia,serif;font-size:22px;color:#1a1410;margin-bottom:12px;line-height:1.35;">I'd love to share my resume with you! 🌸</h3>
-    <p style="font-size:14px;color:#6b6560;line-height:1.75;margin-bottom:22px;">To keep my resume protected, I share it personally. Just reach out via WhatsApp or email and I'll send it to you right away, usually within a few hours!</p>
-    <a href="https://wa.link/mwi33t" target="_blank" rel="noopener"
-       style="display:flex;align-items:center;gap:12px;background:#25D366;color:#fff;text-decoration:none;padding:14px 20px;margin-bottom:12px;font-family:'Poppins',sans-serif;font-size:13px;font-weight:700;letter-spacing:0.06em;">
-      <span style="font-size:20px;">💬</span>
-      <div style="text-align:left;">
-        <div>Message me on WhatsApp</div>
-        <div style="font-size:11px;font-weight:400;opacity:0.85;">+63 992 301 7830</div>
+  <div style="background:#fff;max-width:480px;width:92%;margin:auto;position:relative;padding:44px 36px 36px;box-shadow:0 30px 80px rgba(0,0,0,0.22);max-height:90vh;overflow-y:auto;">
+    <button onclick="closeResumePopup()" style="position:absolute;top:14px;right:16px;background:none;border:none;font-size:20px;cursor:pointer;color:#888;line-height:1;">&#x2715;</button>
+
+    <!-- STEP 1: Info Form -->
+    <div id="resumeStep1">
+      <div style="font-size:36px;margin-bottom:14px;">&#x1F4C4;</div>
+      <div style="font-size:10px;color:#d4859a;letter-spacing:0.28em;text-transform:uppercase;font-weight:700;margin-bottom:8px;">Resume Request</div>
+      <h3 style="font-family:'DM Serif Display',Georgia,serif;font-size:22px;color:#1a1410;margin-bottom:10px;line-height:1.35;">Introduce yourself first! &#x1F338;</h3>
+      <p style="font-size:13px;color:#6b6560;line-height:1.75;margin-bottom:20px;">I share my resume personally so I know who I'm connecting with. Fill in your details and I'll get it to you right away!</p>
+      <div style="margin-bottom:13px;">
+        <label style="display:block;font-size:10px;color:#d4859a;letter-spacing:0.18em;text-transform:uppercase;font-weight:700;margin-bottom:6px;">Your Name <span style="color:#c93838;">*</span></label>
+        <input id="rName" type="text" placeholder="e.g. Maria Santos" style="width:100%;box-sizing:border-box;border:1px solid #e8e2dc;padding:11px 14px;font-family:'Poppins',sans-serif;font-size:13px;color:#1a1410;outline:none;" onfocus="this.style.borderColor='#d4859a'" onblur="this.style.borderColor='#e8e2dc'">
       </div>
-    </a>
-    <div style="border:1px solid #e8e2dc;padding:14px 16px;margin-bottom:18px;">
-      <div style="font-size:10px;color:#d4859a;letter-spacing:0.18em;text-transform:uppercase;font-weight:600;margin-bottom:8px;">Or email me, tap to copy</div>
-      <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;">
-        <span id="resumeEmailText" style="font-size:14px;font-weight:600;color:#1a1410;-webkit-user-select:text;-moz-user-select:text;user-select:text;cursor:text;">ajtmendoza123@gmail.com</span>
-        <button onclick="copyResumeEmail()" id="resumeCopyBtn"
-          style="flex-shrink:0;background:#1a1410;color:#fff;border:none;padding:8px 14px;font-size:10px;letter-spacing:0.12em;text-transform:uppercase;font-weight:700;cursor:pointer;font-family:'Poppins',sans-serif;white-space:nowrap;transition:background 0.2s;">
-          Copy
-        </button>
+      <div style="margin-bottom:13px;">
+        <label style="display:block;font-size:10px;color:#d4859a;letter-spacing:0.18em;text-transform:uppercase;font-weight:700;margin-bottom:6px;">Email Address <span style="color:#c93838;">*</span></label>
+        <input id="rEmail" type="email" placeholder="e.g. maria@email.com" style="width:100%;box-sizing:border-box;border:1px solid #e8e2dc;padding:11px 14px;font-family:'Poppins',sans-serif;font-size:13px;color:#1a1410;outline:none;" onfocus="this.style.borderColor='#d4859a'" onblur="this.style.borderColor='#e8e2dc'">
       </div>
-      <div style="font-size:11px;color:#a09890;margin-top:8px;line-height:1.6;">Subject: <em style="-webkit-user-select:text;user-select:text;">Resume Request — [Your Name]</em></div>
+      <div style="margin-bottom:13px;">
+        <label style="display:block;font-size:10px;color:#d4859a;letter-spacing:0.18em;text-transform:uppercase;font-weight:700;margin-bottom:6px;">WhatsApp Number <span style="font-size:10px;color:#a09890;font-weight:400;text-transform:none;letter-spacing:0;">(optional)</span></label>
+        <input id="rWa" type="tel" placeholder="e.g. +63 912 345 6789" style="width:100%;box-sizing:border-box;border:1px solid #e8e2dc;padding:11px 14px;font-family:'Poppins',sans-serif;font-size:13px;color:#1a1410;outline:none;" onfocus="this.style.borderColor='#d4859a'" onblur="this.style.borderColor='#e8e2dc'">
+      </div>
+      <div style="margin-bottom:20px;">
+        <label style="display:block;font-size:10px;color:#d4859a;letter-spacing:0.18em;text-transform:uppercase;font-weight:700;margin-bottom:6px;">Message <span style="font-size:10px;color:#a09890;font-weight:400;text-transform:none;letter-spacing:0;">(optional)</span></label>
+        <textarea id="rMsg" placeholder="e.g. Hi Anne! I'm a hiring manager and I'd love to see your resume." rows="3" style="width:100%;box-sizing:border-box;border:1px solid #e8e2dc;padding:11px 14px;font-family:'Poppins',sans-serif;font-size:13px;color:#1a1410;outline:none;resize:vertical;" onfocus="this.style.borderColor='#d4859a'" onblur="this.style.borderColor='#e8e2dc'"></textarea>
+      </div>
+      <div id="rErr" style="display:none;font-size:12px;color:#c93838;margin-bottom:12px;padding:10px 14px;background:#fdf1f1;border-left:3px solid #c93838;"></div>
+      <button onclick="resumeNext()" style="width:100%;background:#1a1410;color:#fff;border:none;padding:14px 20px;font-family:'Poppins',sans-serif;font-size:13px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;cursor:pointer;" onmouseover="this.style.background='#d4859a'" onmouseout="this.style.background='#1a1410'">Next &#x2192;</button>
+      <p style="font-size:11px;color:#b0a8a0;text-align:center;margin:14px 0 0;">I reply within 24 hours &middot; Always free to request &#x1F49B;</p>
     </div>
-    <p style="font-size:11px;color:#b0a8a0;text-align:center;margin:0;">I reply within 24 hours · Always free to request 💛</p>
+
+    <!-- STEP 2: Choose how to send -->
+    <div id="resumeStep2" style="display:none;">
+      <div style="font-size:36px;margin-bottom:14px;">&#x1F4EC;</div>
+      <div style="font-size:10px;color:#d4859a;letter-spacing:0.28em;text-transform:uppercase;font-weight:700;margin-bottom:8px;">One More Step</div>
+      <h3 style="font-family:'DM Serif Display',Georgia,serif;font-size:22px;color:#1a1410;margin-bottom:10px;line-height:1.35;">How would you like to reach me? &#x1F338;</h3>
+      <p style="font-size:13px;color:#6b6560;line-height:1.75;margin-bottom:22px;">Choose your preferred way to send your request. Clicking below will open a pre-filled message — just hit send!</p>
+      <a id="resumeWaBtn" href="#" target="_blank" rel="noopener"
+         style="display:flex;align-items:center;gap:14px;background:#25D366;color:#fff;text-decoration:none;padding:16px 20px;margin-bottom:12px;cursor:pointer;">
+        <span style="font-size:24px;">&#x1F4AC;</span>
+        <div>
+          <div style="font-family:'Poppins',sans-serif;font-size:13px;font-weight:700;letter-spacing:0.05em;">Send via WhatsApp</div>
+          <div style="font-size:11px;font-weight:400;opacity:0.85;margin-top:2px;">Opens WhatsApp with your info pre-filled</div>
+        </div>
+      </a>
+      <a id="resumeEmailBtn" href="#"
+         style="display:flex;align-items:center;gap:14px;background:#1a1410;color:#fff;text-decoration:none;padding:16px 20px;margin-bottom:18px;cursor:pointer;">
+        <span style="font-size:24px;">&#x2709;&#xFE0F;</span>
+        <div>
+          <div style="font-family:'Poppins',sans-serif;font-size:13px;font-weight:700;letter-spacing:0.05em;">Send via Email</div>
+          <div style="font-size:11px;font-weight:400;opacity:0.85;margin-top:2px;">Opens your email app with subject &amp; message ready</div>
+        </div>
+      </a>
+      <button onclick="resumeBack()" style="background:none;border:none;color:#a09890;font-family:'Poppins',sans-serif;font-size:12px;cursor:pointer;text-decoration:underline;display:block;margin:0 auto;">&#x2190; Back</button>
+    </div>
+
+    <!-- STEP 3: Thank You -->
+    <div id="resumeStep3" style="display:none;text-align:center;padding:20px 0;">
+      <div style="font-size:52px;margin-bottom:16px;">&#x1F338;</div>
+      <div style="font-size:10px;color:#d4859a;letter-spacing:0.28em;text-transform:uppercase;font-weight:700;margin-bottom:12px;">Request Sent!</div>
+      <h3 style="font-family:'DM Serif Display',Georgia,serif;font-size:22px;color:#1a1410;margin-bottom:12px;line-height:1.35;">Thank you! I'll get back to you shortly &#x1F338;</h3>
+      <p style="font-size:13px;color:#6b6560;line-height:1.75;margin-bottom:24px;">I'll send my resume to you as soon as possible &mdash; usually within a few hours! &#x1F49B;</p>
+      <button onclick="closeResumePopup()" style="background:#d4859a;color:#fff;border:none;padding:13px 32px;font-family:'Poppins',sans-serif;font-size:12px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;cursor:pointer;">Close &#x2715;</button>
+    </div>
+
   </div>
 </div>
 <script>
 function openResumePopup(){
   var p=document.getElementById('resumePopup');
   if(!p)return;
+  document.getElementById('resumeStep1').style.display='block';
+  document.getElementById('resumeStep2').style.display='none';
+  document.getElementById('rName').value='';
+  document.getElementById('rEmail').value='';
+  document.getElementById('rWa').value='';
+  document.getElementById('rMsg').value='';
+  document.getElementById('rErr').style.display='none';
+  document.getElementById('resumeStep3').style.display='none';
   p.style.display='flex';
   document.body.style.overflow='hidden';
   p.onclick=function(e){if(e.target===p)closeResumePopup();};
@@ -483,15 +529,46 @@ function closeResumePopup(){
   if(p)p.style.display='none';
   document.body.style.overflow='';
 }
-function copyResumeEmail(){
-  var email='ajtmendoza123@gmail.com';
-  navigator.clipboard.writeText(email).then(function(){
-    var btn=document.getElementById('resumeCopyBtn');
-    if(btn){btn.textContent='Copied!';setTimeout(function(){btn.textContent='Copy';},2000);}
-  });
+function resumeNext(){
+  var name=document.getElementById('rName').value.trim();
+  var email=document.getElementById('rEmail').value.trim();
+  var wa=document.getElementById('rWa').value.trim();
+  var msg=document.getElementById('rMsg').value.trim();
+  var errEl=document.getElementById('rErr');
+  if(!name&&!email){errEl.textContent='Please enter your name and email address.';errEl.style.display='block';return;}
+  if(!name){errEl.textContent='Please enter your name.';errEl.style.display='block';return;}
+  if(!email){errEl.textContent='Please enter your email address.';errEl.style.display='block';return;}
+  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){errEl.textContent='Please enter a valid email address.';errEl.style.display='block';return;}
+  errEl.style.display='none';
+  // Build WhatsApp link
+  var waText='Hi Anne! \uD83D\uDC4B I\'d like to request your resume.\n\nHere are my details:\nName: '+name+'\nEmail: '+email+(wa?'\nWhatsApp: '+wa:'')+(msg?'\nMessage: '+msg:'')+'\n\nThank you! \uD83C\uDF38';
+  document.getElementById('resumeWaBtn').onclick=function(){setTimeout(resumeShowThanks,800);};
+  document.getElementById('resumeWaBtn').href='https://wa.me/639923017830?text='+encodeURIComponent(waText);
+  // Build email link
+  var subject='Resume Request \u2014 '+name;
+  var body='Hi Anne!\n\nI\'d like to request your resume.\n\nMy details:\nName: '+name+'\nEmail: '+email+(wa?'\nWhatsApp: '+wa:'')+(msg?'\nMessage: '+msg:'')+'\n\nThank you!\n'+name;
+  document.getElementById('resumeEmailBtn').onclick=function(){setTimeout(resumeShowThanks,800);};
+  document.getElementById('resumeEmailBtn').href='mailto:ajtmendoza123@gmail.com?subject='+encodeURIComponent(subject)+'&body='+encodeURIComponent(body);
+  // Show step 2
+  document.getElementById('resumeStep1').style.display='none';
+  document.getElementById('resumeStep2').style.display='block';
+}
+function resumeShowThanks(){
+  document.getElementById('resumeStep2').style.display='none';
+  document.getElementById('resumeStep3').style.display='block';
+}
+function resumeBack(){
+  document.getElementById('resumeStep1').style.display='block';
+  document.getElementById('resumeStep2').style.display='none';
 }
 document.addEventListener('keydown',function(e){if(e.key==='Escape')closeResumePopup();});
 </script>
+
+
+
+
+
+
 
 <script src="js/main.js?v=9"></script>
 <span style="display:none" aria-hidden="true">© 2019 Proassistanne by Anne Joy Therese Mendoza. All content, text, and design are protected intellectual property. Unauthorized copying or reproduction is prohibited.</span>
